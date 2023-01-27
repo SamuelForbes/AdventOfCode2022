@@ -14,8 +14,17 @@ public without sharing class Expedition {
 
     private void parseCalorieInput(String calorieInput){
         List<String> inputPerElf = calorieInput.split('\n\n');
-        new nebc.LazyIterator(inputPerElf)
-                .forEach(new CreateElvesWithFoodItems(elves));
+
+        for(String input : inputPerElf){
+            List<String> foodItemCalories = input.split('\n');
+
+            Elf elf = new Elf();
+            for(String foodItem : foodItemCalories){
+                elf.addFoodItem(Integer.valueOf(foodItem));
+            }
+
+            elves.add(elf);
+        }
     }
 
     public Integer getHighestCalorieElf(){
@@ -26,26 +35,6 @@ public without sharing class Expedition {
         System.debug('The elf with the highest calories is Elf ' + elves.indexOf(highestCalorieElf) + ' with ' + highestCalorieElf.foodItemCalorieTotal + ' calories');
 
         return elves.indexOf(highestCalorieElf);
-    }
-
-    private inherited sharing class CreateElvesWithFoodItems implements nebc.VoidFunction {
-        private List<Elf> elves;
-
-        public CreateElvesWithFoodItems(List<Elf> elves) {
-            this.elves = elves;
-        }
-
-        public void call(Object o) {
-            String elfInput = (String) o;
-            List<String> foodItemCalories = elfInput.split('\n');
-
-            Elf elf = new Elf();
-            for(String foodItem : foodItemCalories){
-                elf.addFoodItem(Integer.valueOf(foodItem));
-            }
-
-            elves.add(elf);
-        }
     }
 
 }
