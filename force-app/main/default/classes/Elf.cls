@@ -23,14 +23,6 @@ public without sharing class Elf implements Comparable {
         foodItemCalorieTotal += calories;
     }
 
-    private inherited sharing class AccumulateCalories implements nebc.AccumulatorFunction {
-
-        public Object nextValue(Object valueSoFar, Object thisValue) {
-            FoodItem foodItem = (FoodItem) thisValue;
-            return ((Integer) valueSoFar) + foodItem.calories;
-        }
-    }
-
     public Integer compareTo(Object param1) {
         Elf otherElf = (Elf) param1;
         return otherElf.foodItemCalorieTotal - this.foodItemCalorieTotal;
